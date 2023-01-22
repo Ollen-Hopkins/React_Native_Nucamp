@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '../features/favorites/favoritesSlice';
 import { useState } from 'react';
 import { Rating, Input } from 'react-native-elements';
+import { postComment } from '../features/comments/commentsSlice';
 
 
 
@@ -30,7 +31,7 @@ const CampsiteInfoScreen = ({ route }) => {
             text,
             campsiteId: campsite.id
         }
-        console.log(newComment);
+        dispatch(postComment(newComment));
         setShowModal(!showModal);
     }
 
@@ -48,7 +49,7 @@ const CampsiteInfoScreen = ({ route }) => {
                     readonly
                     startingValue={rating}
                     style={{ alignItems: 'flex-start', paddingVertical: '5%' }}
-                    imageSize={25} //have to increase image size, 10 is to small for my screen.
+                    imageSize={10} //have to increase image size, 10 is to small for my screen.
 
                 />
                 <Text style={{ fontSize: 12 }}>{`-- ${item.author}, ${item.date}`}</Text>
