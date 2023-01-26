@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { View, FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, FlatList, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
 import { baseUrl } from '../shared/baseUrl';
 import { SwipeRow } from "react-native-swipe-list-view";
@@ -7,20 +7,37 @@ import { toggleFavorite } from '../features/favorites/favoritesSlice';
 import Loading from '../components/LoadingComponent';
 
 const FavoritesScreen = ({ navigation }) => {
-    const dispatch = useDispatch();
+
 
     const { campsitesArray, isLoading, errMess } = useSelector(
         (state) => state.campsites
     );
     const favorites = useSelector((state) => state.favorites);
+    const dispatch = useDispatch();
 
     const renderFavoriteItem = ({ item: campsite }) => {
         return (
-            <SwipeRow rightOpenValue={-100}>
+            <SwipeRow leftOpenValue={100}>
                 <View style={styles.deleteView}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.deleteTouchable}
-                        onPress={() => dispatch(toggleFavorite(campsite.id))}
+                        onPress={() => Alert.alert(
+                            'Delete Favorite?',
+                            'Are you sure you wish to delete the favorite campsite ' + campsite.name + '?',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    onPress: () => console.log(campsite.name + 'Not Deleted'),
+                                    style: 'cancel'
+                                },
+                                {
+                                    text: 'OK',
+                                    onPress: () => dispatch(toggleFavorite(campsite.id))
+                                }
+
+                            ],
+                            { cancelable: false}
+                        )}
                     >
                         <Text style={styles.deleteText}>Delete</Text>
                     </TouchableOpacity>
@@ -86,6 +103,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         width: 100
     }
-})
+});
 
 export default FavoritesScreen;
