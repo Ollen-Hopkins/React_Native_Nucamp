@@ -5,18 +5,18 @@ import {
     ScrollView,
     StyleSheet,
     Switch,
-    Button,
-    Modal
+    Button
 } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Animatable from 'react-native-animatable';
+
 
 const ReservationScreen = () => {
     const [campers, setCampers] = useState(1);
     const [hikeIn, setHikeIn] = useState(false);
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false);
-    const [showModal,setShowModal] = useState(false);
 
     const onDateChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -28,7 +28,6 @@ const ReservationScreen = () => {
         console.log('campers:', campers);
         console.log('hikeIn:', hikeIn);
         console.log('date:', date);
-        setShowModal(!showModal);
     };
 
     const resetForm = () => {
@@ -40,6 +39,11 @@ const ReservationScreen = () => {
 
     return (
         <ScrollView>
+            <Animatable.View
+                animation='zoomIn'
+                duration={2000}
+                delay={1000}
+            >
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Number of Campers:</Text>
                     <Picker
@@ -55,6 +59,12 @@ const ReservationScreen = () => {
                         <Picker.Item label="6" value={6} />
                     </Picker>
                 </View>
+            </Animatable.View>
+            <Animatable.View
+                animation='zoomIn'
+                duration={2000}
+                delay={1000}
+            >
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Hike In?</Text>
                     <Switch
@@ -64,6 +74,12 @@ const ReservationScreen = () => {
                         onValueChange={(value) => setHikeIn(value)}
                     />
                 </View>
+            </Animatable.View>
+            <Animatable.View
+                animation='zoomIn'
+                duration={2000}
+                delay={1000}
+            >
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Date:</Text>
                     <Button
@@ -73,6 +89,7 @@ const ReservationScreen = () => {
                         accessibiltiyLabel='Tap me to select a reservation date'
                     />
                 </View>
+            </Animatable.View>
             {showCalendar && (
                 <DateTimePicker
                     style={styles.formItem}
@@ -82,43 +99,47 @@ const ReservationScreen = () => {
                     onChange={onDateChange}
                 />
             )}
-                <View style={styles.formRow}>
-                <Button 
-                    onPress={() => handleReservation()}
-                    title='Search Availability'
-                    color='#5637DD'
-                    accessibilityLabel="Tap me to search for available campsites to reserve"
-                />
-            </View>
-            <Modal 
-                animationType='slide'
-                transparent={false}
-                visible={showModal}
-                onRequestClose={() => setShowModal(!showModal)}
+            <Animatable.View
+                animation='zoomIn'
+                duration={2000}
+                delay={1000}
             >
-                <View style={styles.modal}>
-                    <Text style={styles.modalTitle}>
+                <View style={styles.formRow}>
+                    <Button
+                        onPress={() => handleReservation()}
+                        title='Search Availability'
+                        color='#5637DD'
+                        accessibilityLabel="Tap me to search for available campsites to reserve"
+                    />
+                </View>
+            </Animatable.View>
+            <Animatable.View
+                animation='zoomIn'
+                duration={2000}
+                delay={1000}
+            >
+                <View style={styles}>
+                    <Text style={styles}>
                         Search Campsite Reservations
                     </Text>
-                    <Text style={styles.modalText}>
+                    <Text style={styles}>
                         Number of Campers: {campers}
                     </Text>
-                    <Text style={styles.modalText}>
+                    <Text style={styles}>
                         Hike-In?: {hikeIn ? 'Yes' : 'No'}
                     </Text>
-                    <Text style={styles.modalText}>
+                    <Text style={styles}>
                         Date: {date.toLocaleDateString('en-US')}
                     </Text>
-                    <Button 
+                    <Button
                         onPress={() => {
-                            setShowModal(!showModal);
                             resetForm();
                         }}
                         color='#5637DD'
                         title='Close'
                     />
                 </View>
-            </Modal>
+            </Animatable.View>
         </ScrollView>
     )
 
@@ -139,22 +160,6 @@ const styles = StyleSheet.create({
     formItem: {
         flex: 1
     },
-    modal: {
-        justifyContent: 'center',
-        margin: 20
-    },
-    modalTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        backgroundColor: '#5637DD',
-        textAlign: 'center',
-        color: '#fff',
-        marginBottom: 20
-    },
-    modalText: {
-        fontSize: 18,
-        margin: 10
-    }
 });
 
 export default ReservationScreen;
