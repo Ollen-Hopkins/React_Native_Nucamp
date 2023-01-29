@@ -5,7 +5,8 @@ import {
     ScrollView,
     StyleSheet,
     Switch,
-    Button
+    Button,
+    Alert
 } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -13,6 +14,29 @@ import * as Animatable from 'react-native-animatable';
 
 
 const ReservationScreen = () => {
+
+    const alertButton = () => {
+        Alert.alert(
+            'Begin Search ?',
+            'Number of campers: ' + campers,
+            
+        [
+            {
+                text: 'cancel',
+                onPress: () => {
+                    console.log('Cancel Pressed');
+                }
+            },
+            {
+                text: 'OK',
+                onPress: () => {
+                    console.log('OK Pressed');
+                }
+            }
+        ])
+    }
+
+
     const [campers, setCampers] = useState(1);
     const [hikeIn, setHikeIn] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -28,6 +52,7 @@ const ReservationScreen = () => {
         console.log('campers:', campers);
         console.log('hikeIn:', hikeIn);
         console.log('date:', date);
+        alertButton();
     };
 
     const resetForm = () => {
@@ -113,7 +138,7 @@ const ReservationScreen = () => {
                     />
                 </View>
             </Animatable.View>
-            <Animatable.View
+  {/*           <Animatable.View
                 animation='zoomIn'
                 duration={2000}
                 delay={1000}
@@ -133,13 +158,14 @@ const ReservationScreen = () => {
                     </Text>
                     <Button
                         onPress={() => {
+                            alertButton();
                             resetForm();
                         }}
                         color='#5637DD'
                         title='Close'
                     />
                 </View>
-            </Animatable.View>
+            </Animatable.View> */}
         </ScrollView>
     )
 
