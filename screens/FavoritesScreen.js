@@ -18,7 +18,7 @@ const FavoritesScreen = ({ navigation }) => {
 
     const renderFavoriteItem = ({ item: campsite }) => {
         return (
-            <SwipeRow leftOpenValue={100}>
+            <SwipeRow rightOpenValue={-100}>
                 <View style={styles.deleteView}>
                     <TouchableOpacity
                         style={styles.deleteTouchable}
@@ -93,7 +93,7 @@ const FavoritesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     deleteView: {
         flexDirection: 'row',
-        justifycontent: 'flex-end',
+        justifyContent: 'flex-end',
         alignItems: 'center',
         flex: 1
     },
