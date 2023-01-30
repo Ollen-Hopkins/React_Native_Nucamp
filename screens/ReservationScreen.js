@@ -12,6 +12,8 @@ import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Animatable from 'react-native-animatable';
 
+// Spent 8+ hours understanding Alerts.
+// Small issues with Alert on able to display two of four options.
 
 const ReservationScreen = () => {
 
